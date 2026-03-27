@@ -1,0 +1,189 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ApexDynamics API",
+    "version": "1.0.0",
+    "description": "API for managing ApexDynamics vehicle catalog"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Home route",
+        "responses": {
+          "200": {
+            "description": "API running confirmation"
+          }
+        }
+      }
+    },
+    "/vehicles": {
+      "get": {
+        "summary": "Get all vehicles",
+        "responses": {
+          "200": {
+            "description": "Returns all vehicles"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new vehicle",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Vehicle"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Vehicle created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/vehicles/{id}": {
+      "get": {
+        "summary": "Get one vehicle by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the vehicle",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns one vehicle"
+          },
+          "404": {
+            "description": "Vehicle not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a vehicle by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the vehicle",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Vehicle"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Vehicle updated successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Vehicle not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a vehicle by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the vehicle",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vehicle deleted successfully"
+          },
+          "404": {
+            "description": "Vehicle not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Vehicle": {
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "price",
+          "blockCount",
+          "topSpeed",
+          "crewSize",
+          "mainWeapon",
+          "weight"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "LTV Pathfinder Recon Vehicle"
+          },
+          "type": {
+            "type": "string",
+            "example": "Light Tactical Vehicle"
+          },
+          "price": {
+            "type": "number",
+            "example": 4055000
+          },
+          "blockCount": {
+            "type": "integer",
+            "example": 55
+          },
+          "topSpeed": {
+            "type": "number",
+            "example": 125
+          },
+          "crewSize": {
+            "type": "integer",
+            "example": 2
+          },
+          "mainWeapon": {
+            "type": "string",
+            "example": "None"
+          },
+          "weight": {
+            "type": "number",
+            "example": 183.7
+          }
+        }
+      }
+    }
+  }
+}
