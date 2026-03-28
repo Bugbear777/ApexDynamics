@@ -6,10 +6,14 @@
     "description": "API for managing ApexDynamics vehicle catalog"
   },
   "servers": [
-    {
-      "url": "http://localhost:3000",
-      "description": "Local server"
-    }
+  {
+    "url": "https://apexdynamics.onrender.com",
+    "description": "Render server"
+  },
+  {
+    "url": "http://localhost:3000",
+    "description": "Local server"
+  }
   ],
   "paths": {
     "/": {
