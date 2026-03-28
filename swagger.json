@@ -62,6 +62,42 @@
         }
       }
     },
+    "/manufacturers": {
+      "get": {
+        "summary": "Get all manufacturers",
+        "responses": {
+          "200": {
+            "description": "Returns all manufacturers"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new manufacturer",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Manufacturer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Manufacturer created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
     "/vehicles/{id}": {
       "get": {
         "summary": "Get one vehicle by ID",
@@ -149,6 +185,97 @@
           },
           "404": {
             "description": "Vehicle not found"
+          }
+        }
+      }
+    },
+    "/manufacturers/{id}": {
+      "get": {
+        "summary": "Get one manufacturer by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the manufacturer",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns one manufacturer"
+          },
+          "404": {
+            "description": "Manufacturer not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a manufacturer by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the manufacturer",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Manufacturer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Manufacturer updated successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Manufacturer not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a manufacturer by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the manufacturer",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Manufacturer deleted successfully"
+          },
+          "404": {
+            "description": "Manufacturer not found"
           }
         }
       }
@@ -267,6 +394,43 @@
         "weight": {
           "type": "number",
           "example": 183.7
+        }
+      }
+    },
+    "Manufacturer": {
+      "type": "object",
+      "required": [
+        "name",
+        "country",
+        "foundedYear",
+        "specialty",
+        "ceo",
+        "isActive"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Apex Dynamics"
+        },
+        "country": {
+          "type": "string",
+          "example": "United States"
+        },
+        "foundedYear": {
+          "type": "integer",
+          "example": 2021
+        },
+        "specialty": {
+          "type": "string",
+          "example": "Military vehicles"
+        },
+        "ceo": {
+          "type": "string",
+          "example": "Joseph Marlow"
+        },
+        "isActive": {
+          "type": "boolean",
+          "example": true
         }
       }
     },
