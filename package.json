@@ -20,9 +20,12 @@
   },
   "homepage": "https://github.com/Bugbear777/ApexDynamics#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "express-validator": "^7.3.1",
+    "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.1.1",
     "swagger-ui-express": "^5.0.1"
   },

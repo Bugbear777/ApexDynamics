@@ -13,6 +13,24 @@ const vehicleRules = () => {
   ];
 };
 
+const registerRules = () => {
+  return [
+    body("email").isEmail().withMessage("Valid email is required."),
+    body("password")
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters long."),
+    body("firstName").trim().notEmpty().withMessage("First name is required."),
+    body("lastName").trim().notEmpty().withMessage("Last name is required.")
+  ];
+};
+
+const loginRules = () => {
+  return [
+    body("email").isEmail().withMessage("Valid email is required."),
+    body("password").notEmpty().withMessage("Password is required.")
+  ];
+};
+
 const checkValidation = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -25,5 +43,7 @@ const checkValidation = (req, res, next) => {
 
 module.exports = {
   vehicleRules,
-  checkValidation
+  checkValidation,
+  registerRules,
+  loginRules
 };
