@@ -5,7 +5,7 @@ router.use("/manufacturers", require("./manufacturers"));
 router.use("/auth", require("./auth"));
 
 router.get("/", (req, res) => {
-  res.send("./index");
+  res.redirect("/index.html");
 });
 
 module.exports = router;
