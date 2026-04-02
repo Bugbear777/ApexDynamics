@@ -4,6 +4,40 @@ async function loadPartials() {
 
   document.getElementById("header").innerHTML = header;
   document.getElementById("footer").innerHTML = footer;
+  renderUserMenu();
 }
 
-loadPartials();
+function renderUserMenu() {
+  const userMenu = document.getElementById("user-menu");
+  if (!userMenu) return;
+
+  const token = localStorage.getItem("token");
+  const username = localStorage.getItem("username");
+
+  if (token) {
+    userMenu.innerHTML = `
+      <span>Welcome, ${username || "User"}</span>
+      <a href="#" id="logout-btn">Logout</a>
+    `;
+
+    const logoutBtn = document.getElementById("logout-btn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        location.reload();
+      });
+    }
+  } else {
+    userMenu.innerHTML = `
+      <a href="/login.html">Login</a>
+      <a href="/register.html">Register</a>
+    `;
+  }
+}
+
+// Run once when page loads
+document.addEventListener("DOMContentLoaded", () => {
+  loadPartials();
+});
