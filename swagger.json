@@ -6,14 +6,14 @@
     "description": "API for managing ApexDynamics vehicle catalog"
   },
   "servers": [
-  {
-    "url": "https://apexdynamics.onrender.com",
-    "description": "Render server"
-  },
-  {
-    "url": "http://localhost:3000",
-    "description": "Local server"
-  }
+    {
+      "url": "https://apexdynamics.onrender.com",
+      "description": "Render server"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    }
   ],
   "paths": {
     "/": {
@@ -280,6 +280,301 @@
         }
       }
     },
+    "/favorites": {
+      "get": {
+        "summary": "Get the logged-in user's favorites",
+        "tags": [ "Favorites" ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the user's favorite vehicles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Favorite"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a vehicle to favorites",
+        "tags": [ "Favorites" ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Favorite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Favorite created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "409": {
+            "description": "Vehicle is already in favorites"
+          }
+        }
+      }
+    },
+
+    "/favorites/{id}": {
+      "delete": {
+        "summary": "Remove a favorite by ID",
+        "tags": [ "Favorites" ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the favorite",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Favorite removed successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Favorite not found"
+          }
+        }
+      }
+    },
+
+    "/reviews": {
+      "get": {
+        "summary": "Get all reviews",
+        "tags": [ "Reviews" ],
+        "responses": {
+          "200": {
+            "description": "Returns all reviews",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Review"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new review",
+        "tags": [ "Reviews" ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Review"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Review created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "409": {
+            "description": "User has already reviewed this vehicle"
+          }
+        }
+      }
+    },
+
+    "/reviews/{id}": {
+      "get": {
+        "summary": "Get one review by ID",
+        "tags": [ "Reviews" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the review",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns one review",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Review not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a review by ID",
+        "tags": [ "Reviews" ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the review",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Review"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Review updated successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Review not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a review by ID",
+        "tags": [ "Reviews" ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the review",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Review not found"
+          }
+        }
+      }
+    },
+
+    "/vehicles/{id}/reviews": {
+      "get": {
+        "summary": "Get all reviews for a specific vehicle",
+        "tags": [ "Reviews", "Vehicles" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the vehicle",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns reviews for the selected vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Review"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Vehicle not found"
+          }
+        }
+      }
+    },
     "/auth/register": {
       "post": {
         "summary": "Register a new user",
@@ -349,142 +644,214 @@
     }
   },
   "components": {
-  "schemas": {
-    "Vehicle": {
-      "type": "object",
-      "required": [
-        "name",
-        "type",
-        "price",
-        "blockCount",
-        "topSpeed",
-        "crewSize",
-        "mainWeapon",
-        "weight"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "example": "LTV Pathfinder Recon Vehicle"
-        },
-        "type": {
-          "type": "string",
-          "example": "Light Tactical Vehicle"
-        },
-        "price": {
-          "type": "number",
-          "example": 4055000
-        },
-        "blockCount": {
-          "type": "integer",
-          "example": 55
-        },
-        "topSpeed": {
-          "type": "number",
-          "example": 125
-        },
-        "crewSize": {
-          "type": "integer",
-          "example": 2
-        },
-        "mainWeapon": {
-          "type": "string",
-          "example": "None"
-        },
-        "weight": {
-          "type": "number",
-          "example": 183.7
+    "schemas": {
+      "Vehicle": {
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "price",
+          "blockCount",
+          "topSpeed",
+          "crewSize",
+          "mainWeapon",
+          "weight"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "LTV Pathfinder Recon Vehicle"
+          },
+          "type": {
+            "type": "string",
+            "example": "Light Tactical Vehicle"
+          },
+          "price": {
+            "type": "number",
+            "example": 4055000
+          },
+          "blockCount": {
+            "type": "integer",
+            "example": 55
+          },
+          "topSpeed": {
+            "type": "number",
+            "example": 125
+          },
+          "crewSize": {
+            "type": "integer",
+            "example": 2
+          },
+          "mainWeapon": {
+            "type": "string",
+            "example": "None"
+          },
+          "weight": {
+            "type": "number",
+            "example": 183.7
+          }
+        }
+      },
+      "Manufacturer": {
+        "type": "object",
+        "required": [
+          "name",
+          "country",
+          "foundedYear",
+          "specialty",
+          "ceo",
+          "isActive"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Apex Dynamics"
+          },
+          "country": {
+            "type": "string",
+            "example": "United States"
+          },
+          "foundedYear": {
+            "type": "integer",
+            "example": 2021
+          },
+          "specialty": {
+            "type": "string",
+            "example": "Military vehicles"
+          },
+          "ceo": {
+            "type": "string",
+            "example": "Joseph Marlow"
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "Favorite": {
+        "type": "object",
+        "required": [
+          "vehicleId"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "661f301a8b1e4c2d12345680"
+          },
+          "userId": {
+            "type": "string",
+            "example": "661f2c9a8b1e4c2d12345678"
+          },
+          "vehicleId": {
+            "type": "string",
+            "example": "661f2d1b8b1e4c2d12345679"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-02T15:30:00.000Z"
+          }
+        }
+      },
+
+      "Review": {
+        "type": "object",
+        "required": [
+          "vehicleId",
+          "rating",
+          "comment"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "661f30598b1e4c2d12345681"
+          },
+          "userId": {
+            "type": "string",
+            "example": "661f2c9a8b1e4c2d12345678"
+          },
+          "vehicleId": {
+            "type": "string",
+            "example": "661f2d1b8b1e4c2d12345679"
+          },
+          "rating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "example": 4
+          },
+          "title": {
+            "type": "string",
+            "example": "Great recon vehicle"
+          },
+          "comment": {
+            "type": "string",
+            "example": "Fast, reliable, and easy to control."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-02T15:30:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-02T16:00:00.000Z"
+          }
+        }
+      },
+      "UserRegister": {
+        "type": "object",
+        "required": [
+          "email",
+          "password",
+          "firstName",
+          "lastName"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "joseph@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "MyPassword123"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Joseph"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Marlow"
+          }
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "joseph@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "MyPassword123"
+          }
         }
       }
     },
-    "Manufacturer": {
-      "type": "object",
-      "required": [
-        "name",
-        "country",
-        "foundedYear",
-        "specialty",
-        "ceo",
-        "isActive"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "example": "Apex Dynamics"
-        },
-        "country": {
-          "type": "string",
-          "example": "United States"
-        },
-        "foundedYear": {
-          "type": "integer",
-          "example": 2021
-        },
-        "specialty": {
-          "type": "string",
-          "example": "Military vehicles"
-        },
-        "ceo": {
-          "type": "string",
-          "example": "Joseph Marlow"
-        },
-        "isActive": {
-          "type": "boolean",
-          "example": true
-        }
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
-    },
-    "UserRegister": {
-      "type": "object",
-      "required": [
-        "email",
-        "password",
-        "firstName",
-        "lastName"
-      ],
-      "properties": {
-        "email": {
-          "type": "string",
-          "example": "joseph@example.com"
-        },
-        "password": {
-          "type": "string",
-          "example": "MyPassword123"
-        },
-        "firstName": {
-          "type": "string",
-          "example": "Joseph"
-        },
-        "lastName": {
-          "type": "string",
-          "example": "Marlow"
-        }
-      }
-    },
-    "UserLogin": {
-      "type": "object",
-      "required": [
-        "email",
-        "password"
-      ],
-      "properties": {
-        "email": {
-          "type": "string",
-          "example": "joseph@example.com"
-        },
-        "password": {
-          "type": "string",
-          "example": "MyPassword123"
-        }
-      }
-    }
-  },
-  "securitySchemes": {
-    "bearerAuth": {
-      "type": "http",
-      "scheme": "bearer",
-      "bearerFormat": "JWT"
     }
   }
-}
 }
