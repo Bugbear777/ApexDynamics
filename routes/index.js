@@ -5,7 +5,7 @@ router.use("/manufacturers", require("./manufacturers"));
 router.use("/auth", require("./auth"));
 
 router.get("/", (req, res) => {
-  res.send("Project 2 API");
+  res.send("./index");
 });
 
 module.exports = router;
