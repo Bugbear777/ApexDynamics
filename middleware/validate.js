@@ -13,6 +13,25 @@ const vehicleRules = () => {
   ];
 };
 
+const reviewRules = () => {
+  return [
+    body("userId").trim().notEmpty().withMessage("User ID is required."),
+    body("vehicleId").trim().notEmpty().withMessage("Vehicle ID is required."),
+    body("rating")
+      .isInt({ min: 1, max: 5 })
+      .withMessage("Rating must be an integer between 1 and 5."),
+    body("comment").trim().notEmpty().withMessage("Comment is required."),
+    body("title").optional().trim()
+  ];
+};
+
+const favoriteRules = () => {
+  return [
+    body("userId").trim().notEmpty().withMessage("User ID is required."),
+    body("vehicleId").trim().notEmpty().withMessage("Vehicle ID is required.")
+  ];
+};
+
 const registerRules = () => {
   return [
     body("email").isEmail().withMessage("Valid email is required."),
@@ -43,6 +62,8 @@ const checkValidation = (req, res, next) => {
 
 module.exports = {
   vehicleRules,
+  reviewRules,
+  favoriteRules,
   checkValidation,
   registerRules,
   loginRules

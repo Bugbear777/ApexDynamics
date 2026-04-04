@@ -4,9 +4,9 @@ const validation = require("../middleware/validate");
 const auth = require("../middleware/authMiddleware");
 
 router.get("/", reviewController.getAll);
-router.get("/:id", reviewController.getSingle);
 router.get("/user/:userId", reviewController.getByUser);
 router.get("/vehicle/:vehicleId", reviewController.getByVehicle);
+router.get("/:id", reviewController.getSingle);
 
 router.post(
   "/",
@@ -24,6 +24,6 @@ router.put(
   reviewController.updateReview
 );
 
-router.delete("/:id", auth.isAuthenticated, reviewController.deleteReview);
+router.delete("/:id", auth.isAuthenticated, reviewController.removeReview);
 
 module.exports = router;

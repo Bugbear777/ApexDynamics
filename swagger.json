@@ -281,101 +281,201 @@
       }
     },
     "/favorites": {
-      "get": {
-        "summary": "Get the logged-in user's favorites",
-        "tags": [ "Favorites" ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the user's favorite vehicles",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Favorite"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      },
-      "post": {
-        "summary": "Add a vehicle to favorites",
-        "tags": [ "Favorites" ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
+    "get": {
+      "summary": "Get all favorites",
+      "tags": ["Favorites"],
+      "responses": {
+        "200": {
+          "description": "Returns all favorites",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Favorite"
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Favorite"
+                }
               }
             }
           }
         },
-        "responses": {
-          "201": {
-            "description": "Favorite created successfully"
-          },
-          "400": {
-            "description": "Invalid input"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "409": {
-            "description": "Vehicle is already in favorites"
-          }
+        "500": {
+          "description": "Server error"
         }
       }
     },
-
-    "/favorites/{id}": {
-      "delete": {
-        "summary": "Remove a favorite by ID",
-        "tags": [ "Favorites" ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "MongoDB ObjectId of the favorite",
+    "post": {
+      "summary": "Add a new favorite",
+      "tags": ["Favorites"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
             "schema": {
-              "type": "string"
+              "$ref": "#/components/schemas/Favorite"
             }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "Favorite removed successfully"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Favorite not found"
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Favorite created successfully"
+        },
+        "400": {
+          "description": "Missing required fields"
+        },
+        "500": {
+          "description": "Server error"
+        }
+      }
+    }
+  },
+  "/favorites/{id}": {
+    "get": {
+      "summary": "Get one favorite by ID",
+      "tags": ["Favorites"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "MongoDB ObjectId of the favorite",
+          "schema": {
+            "type": "string"
           }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Returns one favorite"
+        },
+        "400": {
+          "description": "Invalid ID"
+        },
+        "404": {
+          "description": "Favorite not found"
+        },
+        "500": {
+          "description": "Server error"
         }
       }
     },
+    "put": {
+      "summary": "Update a favorite by ID",
+      "tags": ["Favorites"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "MongoDB ObjectId of the favorite",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Favorite"
+            }
+          }
+        }
+      },
+      "responses": {
+        "204": {
+          "description": "Favorite updated successfully"
+        },
+        "400": {
+          "description": "Invalid ID or missing required fields"
+        },
+        "404": {
+          "description": "Favorite not found"
+        },
+        "500": {
+          "description": "Server error"
+        }
+      }
+    },
+    "delete": {
+      "summary": "Delete a favorite by ID",
+      "tags": ["Favorites"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "MongoDB ObjectId of the favorite",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Favorite deleted successfully"
+        },
+        "400": {
+          "description": "Invalid ID"
+        },
+        "404": {
+          "description": "Favorite not found"
+        },
+        "500": {
+          "description": "Server error"
+        }
+      }
+    }
+  },
+  "/favorites/user/{userId}": {
+    "get": {
+      "summary": "Get favorites by user ID",
+      "tags": ["Favorites"],
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Returns favorites for the specified user"
+        },
+        "500": {
+          "description": "Server error"
+        }
+      }
+    }
+  },
+  "/favorites/vehicle/{vehicleId}": {
+    "get": {
+      "summary": "Get favorites by vehicle ID",
+      "tags": ["Favorites"],
+      "parameters": [
+        {
+          "name": "vehicleId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Returns favorites for the specified vehicle"
+        },
+        "500": {
+          "description": "Server error"
+        }
+      }
+    }
+  },
 
     "/reviews": {
       "get": {
@@ -731,9 +831,7 @@
       },
       "Favorite": {
         "type": "object",
-        "required": [
-          "vehicleId"
-        ],
+        "required": ["userId", "vehicleId"],
         "properties": {
           "_id": {
             "type": "string",
@@ -751,10 +849,14 @@
             "type": "string",
             "format": "date-time",
             "example": "2026-04-02T15:30:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-04-02T16:00:00.000Z"
           }
         }
       },
-
       "Review": {
         "type": "object",
         "required": [
