@@ -489,7 +489,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Reviews"
+                    "$ref": "#/components/schemas/Review"
                   }
                 }
               }
@@ -510,7 +510,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Reviews"
+                "$ref": "#/components/schemas/Review"
               }
             }
           }
@@ -553,7 +553,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Reviews"
+                  "$ref": "#/components/schemas/Review"
                 }
               }
             }
@@ -587,7 +587,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Reviews"
+                "$ref": "#/components/schemas/Review"
               }
             }
           }
@@ -750,6 +750,7 @@
         "required": [
           "name",
           "type",
+          "category",
           "price",
           "blockCount",
           "topSpeed",
@@ -766,7 +767,11 @@
             "type": "string",
             "example": "Light Tactical Vehicle"
           },
-          "price": {
+          "category": {
+            "type": "string",
+            "example": "ground"
+          },
+            "price": {
             "type": "number",
             "example": 4055000
           },
@@ -857,7 +862,7 @@
           }
         }
       },
-      "Reviews": {
+      "Review": {
         "type": "object",
         "required": [
           "vehicleId",

@@ -44,7 +44,6 @@ body {
   gap: var(--spacing-3);
   flex-wrap: wrap;
 }
-
 .site-title {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
@@ -60,6 +59,7 @@ body {
   align-items: center;
   gap: var(--spacing-2);
   flex-wrap: wrap;
+  overflow: visible;
 }
 
   .site-nav a,
@@ -94,7 +94,62 @@ body {
       .site-nav a:last-child:hover {
         border-color: var(--color-primary);
       }
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.dropdown {
+  position: relative;
+  list-style: none;
+}
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 180px;
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+  z-index: 1100;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+}
 
+.dropdown-menu li {
+  width: 100%;
+}
+.dropdown-menu li + li {
+  margin-top: 4px;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 16px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.dropdown-menu a:hover {
+  background-color: var(--color-surface);
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 #user-menu {
   display: flex;
   align-items: center;
@@ -306,4 +361,134 @@ main {
   border-left: 4px solid var(--color-primary);
   border-radius: 12px;
   padding: 28px;
+}
+/* Category Page Styles */
+.category-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 20px 64px;
+}
+
+.category-hero {
+  margin-bottom: 24px;
+}
+
+.category-eyebrow {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.category-hero h1 {
+  margin: 0 0 12px;
+  font-size: 2.5rem;
+  color: var(--color-text-primary);
+}
+
+.category-hero p {
+  margin: 0;
+  max-width: 720px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.category-toolbar {
+  margin-bottom: 24px;
+}
+
+.category-toolbar p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.vehicle-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.vehicle-card-top h2 {
+  margin: 6px 0 0;
+  color: var(--color-text-primary);
+  font-size: 1.3rem;
+}
+
+.vehicle-card-type {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.vehicle-specs {
+  display: grid;
+  gap: 8px;
+}
+
+.vehicle-specs p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.vehicle-specs strong {
+  color: var(--color-text-primary);
+}
+
+.vehicle-card-actions {
+  margin-top: auto;
+}
+
+.vehicle-card-actions a {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.vehicle-card-actions a:hover {
+  background-color: rgba(59, 130, 246, 0.12);
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+}
+
+.empty-state h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--color-text-primary);
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--color-text-secondary);
 }

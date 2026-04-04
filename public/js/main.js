@@ -6,6 +6,20 @@ async function loadPartials() {
   document.getElementById("footer").innerHTML = footer;
   renderUserMenu();
 }
+const dropdownToggle = document.getElementById("vehiclesDropdown");
+const dropdownMenu = document.getElementById("vehiclesMenu");
+
+if (dropdownToggle && dropdownMenu) {
+  dropdownToggle.addEventListener("click", () => {
+    dropdownMenu.classList.toggle("show");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".dropdown")) {
+      dropdownMenu.classList.remove("show");
+    }
+  });
+}
 
 function renderUserMenu() {
   const userMenu = document.getElementById("user-menu");
