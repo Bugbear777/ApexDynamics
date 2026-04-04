@@ -489,7 +489,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Review"
+                    "$ref": "#/components/schemas/Reviews"
                   }
                 }
               }
@@ -510,7 +510,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Review"
+                "$ref": "#/components/schemas/Reviews"
               }
             }
           }
@@ -553,7 +553,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Review"
+                  "$ref": "#/components/schemas/Reviews"
                 }
               }
             }
@@ -587,7 +587,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Review"
+                "$ref": "#/components/schemas/Reviews"
               }
             }
           }
@@ -640,13 +640,13 @@
       }
     },
 
-    "/vehicles/{id}/reviews": {
+    "/reviews/vehicle/{vehicleId}": {
       "get": {
         "summary": "Get all reviews for a specific vehicle",
-        "tags": [ "Reviews", "Vehicles" ],
+        "tags": ["Reviews"],
         "parameters": [
           {
-            "name": "id",
+            "name": "vehicleId",
             "in": "path",
             "required": true,
             "description": "MongoDB ObjectId of the vehicle",
@@ -669,8 +669,8 @@
               }
             }
           },
-          "404": {
-            "description": "Vehicle not found"
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -857,7 +857,7 @@
           }
         }
       },
-      "Review": {
+      "Reviews": {
         "type": "object",
         "required": [
           "vehicleId",

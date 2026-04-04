@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const reviewController = require("../controllers/review");
+const reviewController = require("../controllers/reviews");
 const validation = require("../middleware/validate");
 const auth = require("../middleware/authMiddleware");
 
